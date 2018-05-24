@@ -1,8 +1,4 @@
 # simplePuzzles
 
-## Header 2
+## Some simple programs testing logic
 
-* Bullet 1
-* Bullet 2
-
-Paragraph Here
