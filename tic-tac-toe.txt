@@ -1,0 +1,64 @@
+const EL = (id) => document.getElementById(id);
+const addX = (el) => { 
+	return el.innerHTML = "x"
+};
+
+const list = document.getElementsByClassName("box");
+const j = Array.from(list);
+
+let state = {
+	x: "x",
+  o: "o",
+  board: j,
+  moves: [],
+  index: 0
+}
+
+const combos = (test) => {
+	return {
+    "row1": EL("one").innerHTML === test && EL("two").innerHTML === test && EL("three").innerHTML === test,
+    "row2": EL("four").innerHTML === test && EL("five").innerHTML === test && EL("six").innerHTML === test,
+    "row3": EL("seven").innerHTML === test && EL("eight").innerHTML === test && EL("nine").innerHTML === test,
+    "col1": EL("one").innerHTML === test && EL("four").innerHTML === test && EL("seven").innerHTML === test,
+    "col2": EL("two").innerHTML === test && EL("five").innerHTML === test && EL("eight").innerHTML === test,
+    "col3": EL("three").innerHTML === test && EL("six").innerHTML === test && EL("nine").innerHTML === test,
+    "diagl": EL("one").innerHTML === test && EL("five").innerHTML === test && EL("nine").innerHTML === test,
+    "diag2": EL("three").innerHTML === test && EL("five").innerHTML === test && EL("seven").innerHTML === test
+  }
+  
+}
+
+console.log(combos(state.x))
+
+ state.board.map(i => {
+	i.addEventListener("click", () => {
+  
+    if(state.moves.length === 0){
+    	i.innerHTML = state.x;
+      state.moves.push(state.x)
+      state.index++
+    } else if(state.moves[state.index - 1] === state.x){
+    	i.innerHTML = state.o
+      state.moves.push(state.o)
+      state.index++
+      if(combos(state.o)){
+      	console.log(combos(state.o))
+      	//EL("test").innerHTML = `winner is ${state.o}`;
+      };
+    } else if(state.moves[state.index - 1] === state.o){
+    	i.innerHTML = state.x
+      state.moves.push(state.x)
+      state.index++
+      if(combos(state.x)){
+      	for(const prop in combos(state.x)){
+        	if(prop == true){
+          	console.log(prop)
+          }
+        }
+      }
+    }
+    //checkWinner();
+    console.log(state.index)
+    console.log(state.moves)
+  });
+})
